@@ -1,0 +1,6 @@
+react app//
+
+cd ..
+npx create-react-app client
+cd client
+npm install socket.io-client

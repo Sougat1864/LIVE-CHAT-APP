@@ -1,0 +1,9 @@
+Initialize Node.js project
+
+mkdir chat-app
+cd chat-app
+mkdir server
+cd server
+npm init -y
+
+

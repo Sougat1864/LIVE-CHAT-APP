@@ -1,0 +1,54 @@
+interface
+
+
+import React, { useEffect, useState } from 'react';
+import io from 'socket.io-client';
+import './App.css';
+
+const socket = io.connect('http://localhost:5000'); // Connect to backend
+
+function App() {
+  const [message, setMessage] = useState('');
+  const [chat, setChat] = useState([]);
+
+  // Listen for incoming messages
+  useEffect(() => {
+    socket.on('message', (data) => {
+      setChat((prevChat) => [...prevChat, data]);
+    });
+  }, []);
+
+  // Handle form submission
+  const sendMessage = (e) => {
+    e.preventDefault();
+    socket.emit('message', { message }); // Send message to server
+    setMessage(''); // Clear the input field
+  };
+
+  return (
+    <div className="chat-container">
+      <div className="chat-window">
+        <h2>Real-Time Chat</h2>
+        <div className="chat-messages">
+          {chat.map((data, index) => (
+            <div key={index} className="message">
+              {data.message}
+            </div>
+          ))}
+        </div>
+        <form onSubmit={sendMessage}>
+          <input
+            type="text"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            placeholder="Enter your message"
+            required
+          />
+          <button type="submit">Send</button>
+        </form>
+      </div>
+    </div>
+  );
+}
+
+export default App;

@@ -1,0 +1,5 @@
+chat-app/
+├── client/        # Frontend React app
+├── server/        # Backend Node.js app
+├── package.json   # Project dependencies
+└── README.md      # Project documentation
